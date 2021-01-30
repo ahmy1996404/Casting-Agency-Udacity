@@ -13,6 +13,12 @@ def create_app(test_config=None):
     setup_db(app)
     CORS(app)
 
+    @app.after_request
+    def after_request(response):
+        response.headers.add('Access-Control-Allow-Headers','Content-Type,Authorization,authorization,true')
+        response.headers.add('Access-Control-Allow-Methods','GET, PATCH, POST, DELETE, OPTIONS'),
+        response.headers.add('Access-Control-Allow-Origin', '*'),response.headers.add('Access-Control-Allow-Domain', '*')
+        return response
     @app.route('/')
     def get_greeting():
         return "hello"
