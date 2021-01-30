@@ -269,7 +269,7 @@ def create_app(test_config=None):
     # set actors to movie
     @app.route('/movies/<movie_id>/actors/<act_id>')
     @requires_auth('add:movies')
-    def add_actors(jwt, act_id,movie_id):
+    def add_actors_movie(jwt, act_id,movie_id):
         # get actor that matches with act_id
         actor = Actors.query.get(act_id)
         # if there is not such id with this id
