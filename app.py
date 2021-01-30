@@ -3,6 +3,7 @@ from flask import Flask ,request, abort, jsonify
 from models import setup_db , Movies , Actors , movies_actors
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from auth import requires_auth
 import random
 
 PAGINATION_PER_PAGE = 10
@@ -18,6 +19,7 @@ def create_app(test_config=None):
       for all available Movies.
     '''
     @app.route('/movies')
+    @requires_auth('get:movies')
     def get_movies():
         # get all movies
         # make the pagination for every 10 movies) the number of movies variable 'PAGINATION_PER_PAGE'
@@ -44,6 +46,7 @@ def create_app(test_config=None):
     '''
 
     @app.route('/movies', methods=['POST'])
+    @requires_auth('add:movies')
     def add_movies():
         # get the post request data  'title' , 'release_date'
         body = request.get_json()
@@ -67,6 +70,7 @@ def create_app(test_config=None):
       Create an endpoint to DELETE movie using a movie ID. 
     '''
     @app.route('/movies/<movie_id>', methods=['DELETE'])
+    @requires_auth('delete:movie')
     def delete_movie(movie_id):
         # get movie that matches with movie_id
         movie = Movies.query.get(movie_id)
@@ -87,6 +91,7 @@ def create_app(test_config=None):
       Create an endpoint to update movie using a movie ID. 
     '''
     @app.route('/movies/<movie_id>', methods=['PATCH'])
+    @requires_auth('update:movie')
     def update_movie(movie_id):
         # get movie that matches with movie_id
         movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
@@ -113,8 +118,8 @@ def create_app(test_config=None):
      Create a GET endpoint to get actors based on move. 
     '''
     @app.route('/actors/<move_id>/movies')
+    @requires_auth('get:movies_by_actor')
     def get_movies_by_actor(move_id):
-
         # get the  actors filtered by move
         actors = Actors.query.filter(Actors.movies.any(id=move_id)).all()
         if len(actors) == 0:
@@ -137,6 +142,7 @@ def create_app(test_config=None):
       for all available actors.
     '''
     @app.route('/actors')
+    @requires_auth('get:actors')
     def get_actors():
         # get all actors
         # make the pagination for every 10 movies) the number of movies variable 'PAGINATION_PER_PAGE'
@@ -162,6 +168,7 @@ def create_app(test_config=None):
     '''
 
     @app.route('/actors', methods=['POST'])
+    @requires_auth('add:actor')
     def add_actors():
         # get the post request data  'name' , 'age' , 'gender'
         body = request.get_json()
@@ -185,6 +192,7 @@ def create_app(test_config=None):
     '''
 
     @app.route('/actors/<act_id>', methods=['DELETE'])
+    @requires_auth('delete:actor')
     def delete_actor(act_id):
         # get actor that matches with act_id
         actor = Actors.query.get(act_id)
@@ -206,6 +214,7 @@ def create_app(test_config=None):
     '''
 
     @app.route('/actors/<act_id>', methods=['PATCH'])
+    @requires_auth('update:actors')
     def update_actors(act_id):
         # get actor that matches with act_id
         actor = Actors.query.filter(Actors.id == act_id).one_or_none()
@@ -233,6 +242,7 @@ def create_app(test_config=None):
      Create a GET endpoint to get actors based on move. 
     '''
     @app.route('/movies/<act_id>/actors')
+    @requires_auth('get:actor_by_movies')
     def get_actor_by_movies(act_id):
 
         # get the  movies filtered by actors
