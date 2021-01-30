@@ -43,7 +43,7 @@ class Movies(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     release_date = Column(String)
-    actors =  db.relationship('Actors', secondary=movies_actors,
+    actors = db.relationship('Actors', secondary=movies_actors,
       backref=db.backref('movies', lazy=True))
 
     def __init__(self, title, release_date):
@@ -63,10 +63,15 @@ class Movies(db.Model):
         db.session.commit()
 
     def format(self):
+        formated_actor= []
+        for actor in self.actors:
+            formated_actor.append({'id': actor.id , 'name': actor.name})
+        # print(formated_actor)
         return {
             'id': self.id,
             'title': self.title,
-            'release_date': self.release_date
+            'release_date': self.release_date,
+            'actors':formated_actor
         }
 
 
@@ -101,10 +106,14 @@ class Actors(db.Model):
         db.session.commit()
 
     def format(self):
+        formated_movies = []
+        for movie in self.movies:
+            formated_movies.append({'id': movie.id, 'title': movie.title})
         return {
             'id': self.id,
             'name': self.name,
             'age': self.age,
-            'gender': self.gender
+            'gender': self.gender,
+            'movies': formated_movies
 
         }
