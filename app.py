@@ -283,6 +283,7 @@ def create_app(test_config=None):
         try:
             # create move
             movie.actors.append(actor)
+            session.commit()
             # movie_actor = movies_actors(movie_id=movie_id, actor_id=act_id)
             # movie_actor.insert()
             # return a Response with the JSON representation 'sucsses' , 'create'
