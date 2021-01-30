@@ -266,7 +266,31 @@ def create_app(test_config=None):
             'movies': formated_movies[start:end],
             'total_movies': len(movies),
         })
-
+    # set actors to movie
+    @app.route('/movies/<movie_id>/actors/<act_id>')
+    @requires_auth('add:movies')
+    def add_actors(jwt, act_id,movie_id):
+        # get actor that matches with act_id
+        actor = Actors.query.get(act_id)
+        # if there is not such id with this id
+        if actor is None:
+            abort(422)
+        # get movie that matches with act_id
+        movie = Movies.query.get(movie_id)
+        # if there is not such id with this id
+        if movie is None:
+            abort(422)
+        try:
+            # create move
+            movie_actor = movies_actors(movie_id=movie_id, actor_id=act_id)
+            movie_actor.insert()
+            # return a Response with the JSON representation 'sucsses' , 'create'
+            return jsonify({
+                'success': True,
+                'create': 'created'
+            })
+        except:
+            abort(422)
     '''
 
       Create error handlers for all expected errors 
@@ -304,14 +328,6 @@ def create_app(test_config=None):
             'error': 422,
             'message': 'unprocessable'
         }), 422
-
-    @app.errorhandler(400)
-    def unprocessable(error):
-        return jsonify({
-            'success': False,
-            'error': 400,
-            'message': 'bad request'
-        }), 400
 
     @app.errorhandler(405)
     def unprocessable(error):
