@@ -3,7 +3,7 @@ from flask import Flask ,request, abort, jsonify
 from models import setup_db , Movies , Actors , movies_actors
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from auth import requires_auth
+from auth import requires_auth , AuthError
 import random
 
 PAGINATION_PER_PAGE = 10
@@ -30,9 +30,7 @@ def create_app(test_config=None):
         movies = Movies.query.all()
         # format the movies
         formated_movies = [movie.format() for movie in movies]
-        # if page request  is over than  movies pages
-        if (len(formated_movies[start:end]) == 0):
-            abort(404)
+
         # return a Response with the JSON representation 'sucsses' , 'movies' , 'total_movie' ,
         return jsonify({
             'success': True,
@@ -153,9 +151,7 @@ def create_app(test_config=None):
         actors = Actors.query.all()
         # format the actors
         formated_actors = [actor.format() for actor in actors]
-        # if page request  is over than  actor pages
-        if (len(formated_actors[start:end]) == 0):
-            abort(404)
+
         # return a Response with the JSON representation 'sucsses' , 'movies' , 'total_movie' ,
         return jsonify({
             'success': True,
@@ -315,7 +311,17 @@ def create_app(test_config=None):
             'error': 405,
             'message': 'method not allowed'
         }), 405
+
+    @app.errorhandler(AuthError)
+    def auth_error(error):
+        return jsonify({
+            "success": False,
+            "error": error.status_code,
+            "message": error.error
+        }), error.status_code
+
     return app
+
 
 
 app = create_app()
