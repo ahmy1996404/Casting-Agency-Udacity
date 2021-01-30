@@ -282,8 +282,8 @@ def create_app(test_config=None):
             abort(422)
         try:
             # create move
-            movie.actors.append(actor)
-            session.commit()
+            actor.movies.append(movie)
+            actor.update()
             # movie_actor = movies_actors(movie_id=movie_id, actor_id=act_id)
             # movie_actor.insert()
             # return a Response with the JSON representation 'sucsses' , 'create'
