@@ -271,12 +271,12 @@ def create_app(test_config=None):
     @requires_auth('add:movies')
     def add_actors_movie(jwt, act_id,movie_id):
         # get actor that matches with act_id
-        actor = Actors.query.get(act_id)
+        actor = Actors.query.filter(Actors.id == act_id).one_or_none()
         # if there is not such id with this id
         if actor is None:
             abort(422)
         # get movie that matches with act_id
-        movie = Movies.query.get(movie_id)
+        movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
         # if there is not such id with this id
         if movie is None:
             abort(422)
