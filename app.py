@@ -165,7 +165,7 @@ def create_app(test_config=None):
         return jsonify({
             'success': True,
             'actors': formated_actors[start:end],
-            'total_movies': len(formated_actors),
+            'total_actors': len(formated_actors),
         })
 
     '''
@@ -284,7 +284,7 @@ def create_app(test_config=None):
             # create move
             actor.movies.append(movie)
             actor.update()
-           
+
             # return a Response with the JSON representation 'sucsses' , 'create'
             return jsonify({
                 'success': True,

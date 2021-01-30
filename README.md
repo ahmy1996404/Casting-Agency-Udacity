@@ -87,242 +87,221 @@ The API will return three error types when requests fail:
 ### Endpoint 
 #### GET /movies
 - General:
-    - Returns a list of categories objects, success value.
+    - Returns a list of Movies ( include the actors of this movie , movie id , release_date and title) , total_movies , success value.
+- Require
+    - header 
+        - auth header contain bearer token has permission 'get:movies'
 - Sample:
-    - `curl http://127.0.0.1:5000/movies`
-    - `curl http://127.0.0.1:5000/movies`
+    - `http://127.0.0.1:5000/movies`
+    - `https://casting-agency-uda.herokuapp.com/movies`
 ```
 {
-  "categories": {
-    "1": "Science",
-    "2": "Art",
-    "3": "Geography",
-    "4": "History",
-    "5": "Entertainment",
-    "6": "Sports"
-  },
-  "success": true
+    "movies": [
+        {
+            "actors": [
+                {
+                    "id": 1,
+                    "name": "test name"
+                }
+            ],
+            "id": 1,
+            "release_date": "test release_date",
+            "title": "test title"
+        }
+    ],
+    "success": true,
+    "total_movies": 1
 }
 ```
-#### GET /questions
+####POST /movies
 - General:
-    - Returns success value , a list of questions objects, total number of questions and a list of categories objects .
-    - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1.
-- Sample: 
-    - `curl http://127.0.0.1:5000/questions`
-```
-{
-  "categories": {
-    "1": "Science",
-    "2": "Art",
-    "3": "Geography",
-    "4": "History",
-    "5": "Entertainment",
-    "6": "Sports"
-  },
-  "current_category": null,
-  "questions": [
-    {
-      "answer": "Maya Angelou",
-      "category": 4,
-      "difficulty": 2,
-      "id": 5,
-      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-    },
-    {
-      "answer": "Muhammad Ali",
-      "category": 4,
-      "difficulty": 1,
-      "id": 9,
-      "question": "What boxer's original name is Cassius Clay?"
-    },
-    {
-      "answer": "Apollo 13",
-      "category": 5,
-      "difficulty": 4,
-      "id": 2,
-      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
-    },
-    {
-      "answer": "Tom Cruise",
-      "category": 5,
-      "difficulty": 4,
-      "id": 4,
-      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-    },
-    {
-      "answer": "Edward Scissorhands",
-      "category": 5,
-      "difficulty": 3,
-      "id": 6,
-      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-    },
-    {
-      "answer": "Brazil",
-      "category": 6,
-      "difficulty": 3,
-      "id": 10,
-      "question": "Which is the only team to play in every soccer World Cup tournament?"
-    },
-    {
-      "answer": "Uruguay",
-      "category": 6,
-      "difficulty": 4,
-      "id": 11,
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    },
-    {
-      "answer": "George Washington Carver",
-      "category": 4,
-      "difficulty": 2,
-      "id": 12,
-      "question": "Who invented Peanut Butter?"
-    },
-    {
-      "answer": "Lake Victoria",
-      "category": 3,
-      "difficulty": 2,
-      "id": 13,
-      "question": "What is the largest lake in Africa?"
-    },
-    {
-      "answer": "Agra",
-      "category": 3,
-      "difficulty": 2,
-      "id": 15,
-      "question": "The Taj Mahal is located in which Indian city?"
-    }
-  ],
-  "success": true,
-  "total_questions": 22
-}
-```
-####DELETE /questions/{question_id}
-- General:
-    - Deletes the question of the given ID if it exists. Returns the id of the deleted question, success value.
-```
-{
-  "delete": "22",
-  "success": true
-}
-```
-####POST /questions
-- General:
-    - Creates a new question using the submitted question, answer , category and difficulty. Returns created quistion id  , success value.
+    - Creates a new movie using the title, release_date Returns created movie id  , success value.
 - Sample:
-    - ` curl -i -X POST -H "Content-Type: application/json" -d "{\"question\":\"test q\",\"answer\":\"test a\",\"category\":1,\"difficulty\":5}" http://127.0.0.1:5000/questions`
+    - `http://127.0.0.1:5000/movies`
+    - `https://casting-agency-uda.herokuapp.com/movies`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'add:movies'
+        - Content-Type :  application/json
+    - data
+        - title and release_date
 ```
 {
-  "create": 21 ,
-  "success": true
+    "create": 2,
+    "success": true
 }
 ```
-####POST /questions/search
+####DELETE /movies/<movie_id>
 - General:
-    - search for  questions matches with searchTerm  using searchTerm and current category if null that mean all categories . Returns success value , a list of questions objects, total number of questions .
-    - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1.
-
+    - Deletes the movie of the given ID if it exists. Returns the id of the deleted movie id, success value.
 - Sample:
-    - ` curl -i -X POST -H "Content-Type: application/json" -d "{\"searchTerm\":\"title\" , \"currentCategory\": null}" http://127.0.0.1:5000/questions/search`
+    - `http://127.0.0.1:5000/movies/<movie_id>`
+    - `https://casting-agency-uda.herokuapp.com/movies/<movie_id>`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'delete:movie'
 ```
-                                                                                                                                             
-{                                                                                                                                            
-  "currentCategory": null,                                                                                                                   
-  "questions": [                                                                                                                             
-    {                                                                                                                                        
-      "answer": "Maya Angelou",                                                                                                              
-      "category": 4,                                                                                                                         
-      "difficulty": 2,                                                                                                                       
-      "id": 5,                                                                                                                               
-      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"                                                       
-    },                                                                                                                                       
-    {                                                                                                                                        
-      "answer": "Edward Scissorhands",                                                                                                       
-      "category": 5,                                                                                                                         
-      "difficulty": 3,                                                                                                                       
-      "id": 6,                                                                                                                               
-      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"            
-    }                                                                                                                                        
-  ],                                                                                                                                         
-  "success": true,                                                                                                                           
-  "total_questions": 2                                                                                                                       
-}                                                                                                                                            
-                                                                                                                                             
-```
-#### GET /categories/<cat_id>/questions
-- General:
-    - Get questions of category use cat_id,  Returns success value , a list of questions based on category  , total number of questions , current_category .
-    - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1.
-- Sample: 
-    - `curl http://127.0.0.1:5000/categories/1/questions`
-```
-{                                                                          
-  "current_category": "1",                                           
-  "questions": [                                                           
-    {                                                                      
-      "answer": "The Liver",                                               
-      "category": 1,                                                       
-      "difficulty": 4,                                                     
-      "id": 20,                                                            
-      "question": "What is the heaviest organ in the human body?"          
-    },                                                                     
-    {                                                                      
-      "answer": "Alexander Fleming",                                       
-      "category": 1,                                                       
-      "difficulty": 3,                                                     
-      "id": 21,                                                            
-      "question": "Who discovered penicillin?"                             
-    },                                                                     
-    {                                                                      
-      "answer": "test a",                                                  
-      "category": 1,                                                       
-      "difficulty": 5,                                                     
-      "id": 24,                                                            
-      "question": "test q"                                                 
-    },                                                                     
-    {                                                                      
-      "answer": "test2 a",                                                 
-      "category": 1,                                                       
-      "difficulty": 5,                                                     
-      "id": 25,                                                            
-      "question": "test2 q"                                                
-    },                                                                     
-    {                                                                      
-      "answer": "test2 a",                                                 
-      "category": 1,                                                       
-      "difficulty": 5,                                                     
-      "id": 33,                                                            
-      "question": "test2 q"                                                
-    },                                                                     
-    {                                                                      
-      "answer": "test2 a",                                                 
-      "category": 1,                                                       
-      "difficulty": 5,                                                     
-      "id": 35,                                                            
-      "question": "test2 q"                                                
-    }                                                                      
-  ],                                                                       
-  "success": true,                                                         
-  "total_questions": 6                                                     
-}                                                                          
-```
-####POST /quizzes
-- General:
-    -  get questions to play the quiz using category and previous question . Returns success value ,a random questions within the given category, 
-  if provided, and that is not one of the previous questions .
-- Sample
-    - `curl -i -X POST -H "Content-Type: application/json" -d "{\"quiz_category\":{\"type\": \"Science\", \"id\": \"1\"},\"previous_questions\":[1,2]}" http://127.0.0.1:5000/quizzes`
- ```
 {
-  "question": {
-    "answer": "The Liver",
-    "category": 1,
-    "difficulty": 4,
-    "id": 20,
-    "question": "What is the heaviest organ in the human body?"
-  },
+  "delete": "2",
   "success": true
 }
-``` 
+```
+####PATCH /movies/<movie_id>
+- General:
+    - Edit movie using the movie id  and data . Returns update movie id  , success value.
+- Sample:
+    - `http://127.0.0.1:5000/movies/<movie_id>`
+    - `https://casting-agency-uda.herokuapp.com/movies/<movie_id>`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'update:movie'
+        - Content-Type :  application/json
+    - data
+        - title or release_date
+```
+{
+  "update": "1",
+  "success": true
+}
+```
+####GET /actors/<move_id>/movies
+- General:
+    - get get actors based on movie with movie id . Returns success value , a list of actor of movie , total number of actors .
+- Sample:
+    - `http://127.0.0.1:5000/actors/<move_id>/movies`
+    - `https://casting-agency-uda.herokuapp.com/actors/<move_id>/movies`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'get:movies_by_actor'
+ 
+```
+{
+    "actors": [
+        {
+            "age": "age",
+            "gender": "gender",
+            "id": 1,
+            "movies": [
+                {
+                    "id": 1,
+                    "title": "movie 1"
+                }
+            ],
+            "name": "test name"
+        }
+    ],
+    "success": true,
+    "total_actors": 1
+}
+```
+#### GET /actors
+- General:
+    - Returns a list of actors ( include the movies of this actor , actor id , age , gender and age) , total_movies , success value.
+- Require
+    - header 
+        - auth header contain bearer token has permission 'get:actors'
+- Sample:
+    - `http://127.0.0.1:5000/actors`
+    - `https://casting-agency-uda.herokuapp.com/actors`
+```
+{
+    "actors": [
+        {
+            "age": "age",
+            "gender": "gender",
+            "id": 1,
+            "movies": [
+                {
+                    "id": 1,
+                    "title": "movie 1"
+                }
+            ],
+            "name": "test name"
+        }
+    ],
+    "success": true,
+    "total_actors": 1
+}
+```
+####POST /actors
+- General:
+    - Creates a new actor using the name, gender and age  Returns created actor id  , success value.
+- Sample:
+    - `http://127.0.0.1:5000/actors`
+    - `https://casting-agency-uda.herokuapp.com/actors`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'add:actor'
+        - Content-Type :  application/json
+    - data
+        - name, gender and age
+```
+{
+    "create": 2,
+    "success": true
+}
+```
+####DELETE /actors/<act_id>
+- General:
+    - Deletes the actor of the given ID if it exists. Returns the id of the deleted actor id, success value.
+- Sample:
+    - `http://127.0.0.1:5000/actor/<act_id>`
+    - `https://casting-agency-uda.herokuapp.com/movies/<act_id>`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'delete:actor'
+```
+{
+  "delete": "2",
+  "success": true
+}
+```
+####PATCH /actors/<act_id>
+- General:
+    - Edit avtor using the avtor id  and data . Returns update actor id  , success value.
+- Sample:
+    - `http://127.0.0.1:5000/avtor/<act_id>`
+    - `https://casting-agency-uda.herokuapp.com/avtor/<act_id>`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'update:actor'
+        - Content-Type :  application/json
+    - data
+        - name, gender and age
+```
+{
+  "update": "1",
+  "success": true
+}
+```
+####GET /movies/<act_id>/actors
+- General:
+    - get get movies based on actor with actor id . Returns success value , a list of movie of actor , total number of movies .
+- Sample:
+    - `http://127.0.0.1:5000/movies/<move_id>/actors`
+    - `https://casting-agency-uda.herokuapp.com/movies/<move_id>/actors`
+- Require
+    - header 
+        - Auth header contain bearer token has permission 'get:actor_by_movies'
+ 
+```
+{
+    "movies": [
+        {
+            "actors": [
+                {
+                    "id": 1,
+                    "name": "actor 1 updated"
+                }
+            ],
+            "id": 1,
+            "release_date": "test release_date",
+            "title": "movie 1"
+        }
+    ],
+    "success": true,
+    "total_movies": 1
+}
+```
 ##Authors
 Ahmed Hamouda
