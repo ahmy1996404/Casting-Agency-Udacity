@@ -27,9 +27,12 @@ def setup_db(app, database_path=database_path):
 
     '''
 
+
 movies_actors = db.Table('movies_actors',
-    db.Column('movie_id', db.Integer, db.ForeignKey('movies.id'), primary_key=True),
-     db.Column('actor_id', db.Integer, db.ForeignKey('actors.id'), primary_key=True)
+    db.Column('movie_id', db.Integer,
+              db.ForeignKey('movies.id'), primary_key=True),
+    db.Column('actor_id', db.Integer,
+              db.ForeignKey('actors.id'), primary_key=True)
 )
 
 '''
@@ -44,13 +47,11 @@ class Movies(db.Model):
     id = Column(Integer, primary_key=True)
     title = Column(String)
     release_date = Column(String)
-    actors = db.relationship('Actors', secondary=movies_actors,
-      backref=db.backref('movies', lazy=True))
+    actors = db.relationship('Actors', secondary=movies_actors, backref=db.backref('movies', lazy=True))
 
     def __init__(self, title, release_date):
         self.title = title
         self.release_date = release_date
-
 
     def insert(self):
         db.session.add(self)
@@ -64,15 +65,15 @@ class Movies(db.Model):
         db.session.commit()
 
     def format(self):
-        formated_actor= []
+        formated_actor = []
         for actor in self.actors:
-            formated_actor.append({'id': actor.id , 'name': actor.name})
+            formated_actor.append({'id': actor.id, 'name': actor.name})
         # print(formated_actor)
         return {
             'id': self.id,
             'title': self.title,
             'release_date': self.release_date,
-            'actors':formated_actor
+            'actors': formated_actor
         }
 
 
@@ -90,7 +91,7 @@ class Actors(db.Model):
     age = Column(String)
     gender = Column(String)
 
-    def __init__(self, name , age , gender):
+    def __init__(self, name, age, gender):
         self.name = name
         self.age = age
         self.gender = gender
