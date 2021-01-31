@@ -1,7 +1,10 @@
 # Casting Agency Project
 
 ## Introduction
-Casting Agency is amazing full stack web app project developed for udacity Full-Stack Developer Nanodegree Capstone.
+Casting Agency is amazing full stack web app project developed for udacity Full-Stack Developer Nanodegree Capstone , The Casting Agency models a company that is responsible for creating movies and managing and assigning actors to those movies. You are an Executive Producer within the company and are creating a system to simplify and streamline your process.
+## Motivation 
+#### Why did I make this project?
+I developed this project to make use of the knowledge i acquired in this nanodegree and hence gain confidence in these skills.
 ####Casting Agency App Features :-
 1) Display movies and actors. 
 2) Delete movies and actors.
@@ -35,7 +38,7 @@ We recommend working within a virtual environment whenever using Python for proj
 Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 This will install all of the required packages we selected within the `requirements.txt` file.
@@ -48,6 +51,36 @@ This will install all of the required packages we selected within the `requireme
 
 - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
 
+###Local Database Setup
+Once you create the database, open your terminal, navigate to the root folder, and run:
+```
+flask db init
+flask db migrate -m "Initial migration."
+flask db upgrade
+```
+After running, don't forget modify 'SQLALCHEMY_DATABASE_URI' variable.
+
+###Local Testing
+To test your local installation, run the following command from the root folder:
+```
+python -m test_app.py
+```
+If all tests pass, your local installation is set up correctly.
+
+###Running the server
+From within the root directory, first ensure you're working with your created
+venv. To run the server, execute the following:
+```
+export FLASK_APP=manage
+export FLASK_DEBUG=true
+export FLASK_ENV=development
+flask run
+```
+Setting the ```FLASK_ENV``` variable to development will detect file changes and
+restart the server automatically.
+Setting the ```FLASK_APP``` variable to ```manage``` directs Flask to use
+the ``` manage``` directory and the __init__.py file to find and load the
+application.
 ## API Referance
 ### Getting Start
 - Base URL : At present this app run locally and  hosted heroku . The app is hosted at the local , `http://127.0.0.1:5000`,The app is hosted at heroku , `https://casting-agency-uda.herokuapp.com/`
@@ -60,13 +93,13 @@ This will install all of the required packages we selected within the `requireme
         - ``` 'casting'```
     - Casting_Assistant
       ```
-      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkZ2TG5XbmxjaVJqZFVkVjY5bmpvQiJ9.eyJpc3MiOiJodHRwczovL2FobWVkZnNuZC51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAxNTY4MzU2OGJmMTgwMDY5ZWRkODkzIiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYxMjAxNTgzNywiZXhwIjoxNjEyMTAyMjM3LCJhenAiOiJ1ZTN5N3BZR2JUUXlCRW1FUjdEY1AzUjNDcE1UUUI0SyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9yX2J5X21vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwiZ2V0Om1vdmllc19ieV9hY3RvciJdfQ.EZ_LAIWlIiY4IeEF494bd7dhNYOW2quCSx7Jtv6nutKW4oItOLHqLRz1CZWle3Tog3WDpbNvOPBvO5zRVmcTLC9vfuC8edXqEyjr4aEprdQCnBUGmCRiMMfXVc7YKbMUCS5zrnntjR86GX9i_278QMrqOl-nDVCfcCvnMjlpFQcIR75hA6zkzpgMnmVNsS4YNPBTHz4ugYDlJ1CN37jEoDy931P-EJQYuPX-F5gGFI4c8hxwrurpOF1iehGhoqHc3gryEHnw87qvSR2RAumjClVXVympBLUgaot-JdI_FXQH1ONX-tUkBsUN6ISJWprFZIPVhG74jsR-6ia0XYx1kg"
+      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkZ2TG5XbmxjaVJqZFVkVjY5bmpvQiJ9.eyJpc3MiOiJodHRwczovL2FobWVkZnNuZC51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAxNTY4MzU2OGJmMTgwMDY5ZWRkODkzIiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYxMjA3ODY4NiwiZXhwIjoxNjEyMTY1MDg2LCJhenAiOiJ1ZTN5N3BZR2JUUXlCRW1FUjdEY1AzUjNDcE1UUUI0SyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZ2V0OmFjdG9yX2J5X21vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwiZ2V0Om1vdmllc19ieV9hY3RvciJdfQ.Vcs8NjdqD599x4rPWzzqvQWaPE4blQtFEtNNwgRNbKiNQPfyaAPCzL7Ii5f1PGQOFF17kxt32AbszMzrHZr1U_erxWpRWbU5hitPheLbgLJCIY8KY2erA580rZU93m3wGaavImlbdVi8q7tWHoLD2gepVHjC1G8ytca1qxKUHTFGlquMtx15BFlUC7JD0SzEIP4-VDW6xoNzcqPVW31sizkFr7d_pRZHvFgW9unctis3aDZzgQMc78Zr3_YIB56O1uYOtakfoHc-CjjYS5Qw_qHoOrDzeqV9QBwqQj_drPdLONPiXHtgAXfbwCL4YwjtGBtuH-69nP8U6WLw_a25OQ"
     - Casting_Director 
          ```
-        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkZ2TG5XbmxjaVJqZFVkVjY5bmpvQiJ9.eyJpc3MiOiJodHRwczovL2FobWVkZnNuZC51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAxNTVlNjY5ZGJkMWEwMDY4ZjA5OWMzIiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYxMjAxMzI3MCwiZXhwIjoxNjEyMDk5NjcwLCJhenAiOiJ1ZTN5N3BZR2JUUXlCRW1FUjdEY1AzUjNDcE1UUUI0SyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiYWRkOmFjdG9yIiwiZGVsZXRlOmFjdG9yIiwiZ2V0OmFjdG9yX2J5X21vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwiZ2V0Om1vdmllc19ieV9hY3RvciIsInVwZGF0ZTphY3RvcnMiLCJ1cGRhdGU6bW92aWUiXX0.gUyUccANGKhag_N5F3JXfbHNQtbUYN4hdrhUYA513d14Vv6mJIg_1G90_T3Gf2Mqc84-n3HP3sZVKYfTBxywfD3cThfmw706-HAxcCxgwPnTzWaL1pQiCAZ6RpNsBtjsqQjEJsMVZKeEdr5r0lP0E3rXfbbeOEbVkRYgIbwRuWMFaXmu67ICvlJHH57C7o02vjlg9G-l2Wtns7QuJM_c-01f3YTQ3CGJeN0Q9mSuYNefADeOlGjBNC-VOx8zVibmENAbwFJNw80DpSyJtbLOjcsil9LD5M5Vi9w_U_HqQU0f3b2byuB-14N0q4bpv0jVUwyFttyS7DyFupDKlTrhDw"```
+        "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkZ2TG5XbmxjaVJqZFVkVjY5bmpvQiJ9.eyJpc3MiOiJodHRwczovL2FobWVkZnNuZC51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjAxNTVlNjY5ZGJkMWEwMDY4ZjA5OWMzIiwiYXVkIjoiY2FzdGluZyIsImlhdCI6MTYxMjA3ODM3MiwiZXhwIjoxNjEyMTY0NzcyLCJhenAiOiJ1ZTN5N3BZR2JUUXlCRW1FUjdEY1AzUjNDcE1UUUI0SyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiYWRkOmFjdG9yIiwiZGVsZXRlOmFjdG9yIiwiZ2V0OmFjdG9yX2J5X21vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwiZ2V0Om1vdmllc19ieV9hY3RvciIsInVwZGF0ZTphY3RvcnMiLCJ1cGRhdGU6bW92aWUiXX0.cVkqlhcjqxIjuXv1R3wwq8T-8QIhj0KWFIEWyMddkNRxWZ4EpTee2Uf4bbZl5eMl0Xy2Evh-GjL1GBb-fDnXVUUZuEDAypUl4syKW58spFaIcBH7-UjPc0C8zgLXk1j5npT4ZrRWrodd_5XQIcJc6yotbWbVTeEzE03vle8NsfJ76xltqWsvTnICh0zFy5XOdY_7ROpIWNIeH6X8k6kr4JhLY_Y7sViW1fisrFLsDaXorJys-cuxp_G2BIfD31GaNAjB9lfPuXTHTRt59RuChTXoQecoVWIFCRBM66D-tGCOxFtc5VnmzTwwkGDgxT6osIsEkw1FDpdSIPWsRIeylg"```
     - Executive_Producer
       ```
-      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkZ2TG5XbmxjaVJqZFVkVjY5bmpvQiJ9.eyJpc3MiOiJodHRwczovL2FobWVkZnNuZC51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTAzOTkxNzMzMTc4NjM5OTM0MDciLCJhdWQiOlsiY2FzdGluZyIsImh0dHBzOi8vYWhtZWRmc25kLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2MTIwMTAwMDEsImV4cCI6MTYxMjA5NjQwMSwiYXpwIjoidWUzeTdwWUdiVFF5QkVtRVI3RGNQM1IzQ3BNVFFCNEsiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiYWRkOmFjdG9yIiwiYWRkOm1vdmllcyIsImRlbGV0ZTphY3RvciIsImRlbGV0ZTptb3ZpZSIsImdldDphY3Rvcl9ieV9tb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsImdldDptb3ZpZXNfYnlfYWN0b3IiLCJ1cGRhdGU6YWN0b3JzIiwidXBkYXRlOm1vdmllIl19.dxlwEIAWEIenEilqF3mmtlDLe_2wvD--js8mIwrezfW52EQAqqCm_njlfiixEL_IQKsLfuEvIUgkpX1mwhhhJ4KOI9Ng_somhbSARFJxYXPdJs2iQsU6f3EThbup85LAnaHsBeADmjncg1sgD5y3ZCjca33QzDdn30YHyfehqbcsLW3txnfdXNZK-0St6mbwvn4udxbBpui_hgaQFLUV6CYW-Q7WJ7haRFh1j5HlKrgx7R_cl24L2bF6_GCh0IuCPOpqTDP6RiLeVBV6LAKUwAfqWvdnKI2ycIL5u0qzWqjoDx-eEfN2qGMCFyPS1Fc92djjLtj_w7v4cjF6w-F7Jw"```
+      "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkZ2TG5XbmxjaVJqZFVkVjY5bmpvQiJ9.eyJpc3MiOiJodHRwczovL2FobWVkZnNuZC51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTAzOTkxNzMzMTc4NjM5OTM0MDciLCJhdWQiOlsiY2FzdGluZyIsImh0dHBzOi8vYWhtZWRmc25kLnVzLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE2MTIwNzgyMzYsImV4cCI6MTYxMjE2NDYzNiwiYXpwIjoidWUzeTdwWUdiVFF5QkVtRVI3RGNQM1IzQ3BNVFFCNEsiLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwicGVybWlzc2lvbnMiOlsiYWRkOmFjdG9yIiwiYWRkOm1vdmllcyIsImRlbGV0ZTphY3RvciIsImRlbGV0ZTptb3ZpZSIsImdldDphY3Rvcl9ieV9tb3ZpZXMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsImdldDptb3ZpZXNfYnlfYWN0b3IiLCJ1cGRhdGU6YWN0b3JzIiwidXBkYXRlOm1vdmllIl19.hmc_AlTsnO8K-LRnnKK3NxjBKKLZJ4nvtbQoP31Z7TMxyEVp_eDEj8q2Xrfh10uT6nIyh1ct5xessPzwdC3kJSRM4163T_rnOxkbNzZfq7oJ8qLadRDx_N70NU4DEPNz2n-vT4jhVOzNX3o5hJLnTFUHZDAdUijhaSuYb6munovg4aa5Yo_uU4IdhkcfDfKvg9ykudPOjhcG_rMmgIQo8wml-yqsvtZ2X3xLXpksWnaPAhvYToHdg3_Z_vDThzhfVD-yUXoitZ0KL_cl-LTcuS87g_vPFkgfmru-l-fA-m6-vcv_ZwqvGBsG8Oc-fGn26F3adIV1mJ58GllMkhMq0g"```
     - this tokens will be expired
 ### Error Handling 
 Errors are returned as JSON objects in the following format :
