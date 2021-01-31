@@ -77,7 +77,8 @@ def create_app(test_config=None):
                 'success': True,
                 'create': move.id
             })
-        except:
+        except ex:
+            print(ex)
             abort(422)
     '''
     Create an endpoint to DELETE movie using a movie ID.
@@ -126,7 +127,8 @@ def create_app(test_config=None):
                     'update': movie_id
                 })
 
-        except:
+        except ex:
+            print(ex)
             abort(422)
 
     '''
@@ -205,7 +207,8 @@ def create_app(test_config=None):
                 'success': True,
                 'create': actor.id
             })
-        except:
+        except ex:
+            print(ex)
             abort(422)
 
     '''
@@ -259,7 +262,8 @@ def create_app(test_config=None):
                 'update': act_id
             })
 
-        except:
+        except ex:
+            print(ex)
             abort(422)
     '''
      Create a GET endpoint to get actors based on move.
@@ -312,7 +316,8 @@ def create_app(test_config=None):
                 'success': True,
                 'create': 'created'
             })
-        except:
+        except ex:
+            print(ex)
             abort(422)
     '''
 

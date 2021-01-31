@@ -34,7 +34,9 @@ class MyTestCase(unittest.TestCase):
 
     def test_get_movies(self):
         # get response and data
-        res = self.client().get('/movies', headers={"Authorization": "Bearer " + Casting_Assistant})
+        res = self.client().get('/movies',
+                                headers={"Authorization": "Bearer " +
+                                                          Casting_Assistant})
         data = json.loads(res.data)
 
         # check state and sucsses
@@ -58,7 +60,8 @@ class MyTestCase(unittest.TestCase):
             'release_date': 'test release_date'
         }
         res = self.client().post('/movies',
-                                 headers={"Authorization": "Bearer " + Executive_Producer},
+                                 headers={"Authorization": "Bearer " +
+                                                           Executive_Producer},
                                  json=new_movie)
         data = json.loads(res.data)
         # check state and sucsses true
@@ -73,7 +76,8 @@ class MyTestCase(unittest.TestCase):
             'release_date': 'test release_date',
         }
         res = self.client().post('/movies',
-                                 headers={"Authorization": "Bearer " + Casting_Assistant},
+                                 headers={"Authorization": "Bearer " +
+                                                           Casting_Assistant},
                                  json=new_movie)
         data = json.loads(res.data)
         # check state and sucsses false
@@ -87,7 +91,8 @@ class MyTestCase(unittest.TestCase):
             'release_date': ''
         }
         res = self.client().post('/movies',
-                                 headers={"Authorization": "Bearer " + Executive_Producer},
+                                 headers={"Authorization": "Bearer " +
+                                                           Executive_Producer},
                                  json=new_movie)
         data = json.loads(res.data)
         # check state and sucsses true
@@ -103,7 +108,9 @@ class MyTestCase(unittest.TestCase):
         # get inserted movie id
         m_id = move.id
         res = self.client().delete('/movies/{}'.format(m_id),
-                                   headers={"Authorization": "Bearer " + Executive_Producer})
+                                   headers={"Authorization": "Bearer " +
+                                                             Executive_Producer
+                                            })
         data = json.loads(res.data)
         # check state and sucsses true
         self.assertEqual(res.status_code, 200)
@@ -114,7 +121,9 @@ class MyTestCase(unittest.TestCase):
     def test_error_delete_movie_id_not_valid(self):
         # get response and data
         res = self.client().delete('/movies/250',
-                                   headers={"Authorization": "Bearer " + Executive_Producer})
+                                   headers={"Authorization": "Bearer " +
+                                                             Executive_Producer
+                                            })
         data = json.loads(res.data)
         # check error state and sucsses false
         self.assertEqual(res.status_code, 422)
@@ -132,7 +141,9 @@ class MyTestCase(unittest.TestCase):
             'title': 'update title',
         }
         res = self.client().patch('/movies/{}'.format(m_id),
-                                  headers={"Authorization": "Bearer " + Executive_Producer},
+                                  headers={"Authorization": "Bearer " +
+                                                            Executive_Producer
+                                           },
                                   json=update_movie)
         data = json.loads(res.data)
         # check state and sucsses true
@@ -147,7 +158,9 @@ class MyTestCase(unittest.TestCase):
         }
         # get response and data
         res = self.client().patch('/movies/250',
-                                  headers={"Authorization": "Bearer " + Executive_Producer},
+                                  headers={"Authorization": "Bearer " +
+                                                            Executive_Producer
+                                           },
                                   json=update_movie)
         data = json.loads(res.data)
         # check error state and sucsses false
@@ -158,7 +171,9 @@ class MyTestCase(unittest.TestCase):
     def test_get_actors(self):
         # get response and data
         res = self.client().get('/actors',
-                                headers={"Authorization": "Bearer " + Casting_Assistant})
+                                headers={"Authorization": "Bearer " +
+                                                          Casting_Assistant
+                                         })
         data = json.loads(res.data)
 
         # check state and sucsses
@@ -173,7 +188,9 @@ class MyTestCase(unittest.TestCase):
             'gender': 'gender'
         }
         res = self.client().post('/actors',
-                                 headers={"Authorization": "Bearer " + Executive_Producer},
+                                 headers={"Authorization": "Bearer " +
+                                                           Executive_Producer
+                                          },
                                  json=new_actors)
         data = json.loads(res.data)
         # check state and sucsses true
@@ -188,7 +205,9 @@ class MyTestCase(unittest.TestCase):
             'gender': '',
         }
         res = self.client().post('/actors',
-                                 headers={"Authorization": "Bearer " + Executive_Producer},
+                                 headers={"Authorization": "Bearer " +
+                                                           Executive_Producer
+                                          },
                                  json=new_actors)
         data = json.loads(res.data)
         # check state and sucsses true
@@ -203,7 +222,9 @@ class MyTestCase(unittest.TestCase):
         # get inserted actor id
         a_id = actor.id
         res = self.client().delete('/actors/{}'.format(a_id),
-                                   headers={"Authorization": "Bearer " + Executive_Producer})
+                                   headers={"Authorization": "Bearer " +
+                                                             Executive_Producer
+                                            })
         data = json.loads(res.data)
         # check state and sucsses true
         self.assertEqual(res.status_code, 200)
@@ -213,7 +234,9 @@ class MyTestCase(unittest.TestCase):
     def test_error_delete_movie_id_not_valid(self):
         # get response and data
         res = self.client().delete('/actors/250',
-                                   headers={"Authorization": "Bearer " + Executive_Producer})
+                                   headers={"Authorization": "Bearer " +
+                                                             Executive_Producer
+                                            })
         data = json.loads(res.data)
         # check error state and sucsses false
         self.assertEqual(res.status_code, 422)
@@ -231,7 +254,9 @@ class MyTestCase(unittest.TestCase):
             'name': 'update name',
         }
         res = self.client().patch('/actors/{}'.format(a_id),
-                                  headers={"Authorization": "Bearer " + Executive_Producer},
+                                  headers={"Authorization": "Bearer " +
+                                                            Executive_Producer
+                                           },
                                   json=update_movie)
         data = json.loads(res.data)
         # check state and sucsses true
@@ -245,7 +270,9 @@ class MyTestCase(unittest.TestCase):
         }
         # get response and data
         res = self.client().patch('/actors/250',
-                                  headers={"Authorization": "Bearer " + Executive_Producer},
+                                  headers={"Authorization": "Bearer " +
+                                                            Executive_Producer
+                                           },
                                   json=update_actor)
         data = json.loads(res.data)
         # check error state and sucsses false
